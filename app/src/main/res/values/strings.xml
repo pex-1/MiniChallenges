@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MiniChallenges</string>
+    <string name="festival_lineup">Festival\nLineup</string>
+    <string name="tap_a_stage_to_view_performers">Tap a stage to view performers</string>
 </resources>
