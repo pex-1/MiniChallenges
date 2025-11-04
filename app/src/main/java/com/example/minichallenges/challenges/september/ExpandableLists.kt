@@ -47,42 +47,44 @@ data class Stage(val name: String, val color: Color, val performers: List<Perfor
 
 @Composable
 fun ExpandableLists() {
-    var expandedIndex by remember { mutableStateOf<Int?>(null) }
+    SeptemberTheme {
+        var expandedIndex by remember { mutableStateOf<Int?>(null) }
 
-    Scaffold(
-        modifier = Modifier.background(MaterialTheme.colorScheme.background)
-    ) { padding ->
-        Column(
-            modifier = Modifier
-                .padding(padding)
-                .padding(vertical = 16.dp)
-                .fillMaxSize()
-        ) {
-            Text(
-                modifier = Modifier.padding(horizontal = 12.dp),
-                text = stringResource(R.string.festival_lineup),
-                style = MaterialTheme.typography.bodyLarge
-            )
-
-            Text(
-                text = stringResource(R.string.tap_a_stage_to_view_performers),
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(bottom = 16.dp, start = 10.dp, end = 10.dp)
-            )
-
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+        Scaffold(
+            modifier = Modifier.background(MaterialTheme.colorScheme.background)
+        ) { padding ->
+            Column(
+                modifier = Modifier
+                    .padding(padding)
+                    .padding(vertical = 16.dp)
+                    .fillMaxSize()
             ) {
-                itemsIndexed(stages) { index, stage ->
-                    ExpandableStageCard(
-                        title = stage.name,
-                        backgroundColor = stage.color,
-                        isExpanded = expandedIndex == index,
-                        performers = stage.performers,
-                        onClick = {
-                            expandedIndex = if (expandedIndex == index) null else index
-                        }
-                    )
+                Text(
+                    modifier = Modifier.padding(horizontal = 12.dp),
+                    text = stringResource(R.string.festival_lineup),
+                    style = MaterialTheme.typography.bodyLarge
+                )
+
+                Text(
+                    text = stringResource(R.string.tap_a_stage_to_view_performers),
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(bottom = 16.dp, start = 10.dp, end = 10.dp)
+                )
+
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    itemsIndexed(stages) { index, stage ->
+                        ExpandableStageCard(
+                            title = stage.name,
+                            backgroundColor = stage.color,
+                            isExpanded = expandedIndex == index,
+                            performers = stage.performers,
+                            onClick = {
+                                expandedIndex = if (expandedIndex == index) null else index
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -154,7 +156,7 @@ fun ExpandableStageCard(
 
                         if (i != performers.lastIndex) {
                             HorizontalDivider(
-                                modifier = Modifier.padding(vertical = 20.dp),
+                                modifier = Modifier.padding(vertical = 25.dp),
                                 color = textPrimary,
                                 thickness = 2.dp
                             )
