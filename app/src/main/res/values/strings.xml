@@ -2,4 +2,10 @@
     <string name="app_name">MiniChallenges</string>
     <string name="festival_lineup">Festival\nLineup</string>
     <string name="tap_a_stage_to_view_performers">Tap a stage to view performers</string>
+
+    <string name="ticket_builder">Ticket\nBuilder</string>
+    <string name="select_ticket_type_quantity"><![CDATA[Select Ticket Type & Quantity]]></string>
+    <string name="ticket_type">TICKET TYPE:</string>
+    <string name="quantity">QUANTITY:</string>
+    <string name="total">"Total: "</string>
 </resources>
