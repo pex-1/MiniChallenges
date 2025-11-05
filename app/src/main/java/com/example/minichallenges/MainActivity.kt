@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.example.minichallenges.challenges.september.MapChipFilter
 import com.example.minichallenges.challenges.september.TicketBuilder
 
 class MainActivity : ComponentActivity() {
@@ -12,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            TicketBuilder()
+            MapChipFilter()
         }
     }
 }

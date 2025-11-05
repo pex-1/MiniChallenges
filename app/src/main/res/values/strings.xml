@@ -8,4 +8,6 @@
     <string name="ticket_type">TICKET TYPE:</string>
     <string name="quantity">QUANTITY:</string>
     <string name="total">"Total: "</string>
+
+    <string name="festival_map">Festival Map</string>
 </resources>
