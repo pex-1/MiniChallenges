@@ -91,6 +91,10 @@ fun PerformanceItem(performance: Performance) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .clearAndSetSemantics {
+                contentDescription =
+                    "${performance.name}, ${performance.time}, ${performance.stage}"
+            }
             .clip(RoundedCornerShape(12.dp))
             .background(surfaceHigher)
             .padding(horizontal = 16.dp, vertical = 20.dp)
@@ -105,10 +109,6 @@ fun PerformanceItem(performance: Performance) {
         )
         Row(
             modifier = Modifier
-                .clearAndSetSemantics {
-                    contentDescription =
-                        "${performance.name}, ${performance.time}, ${performance.stage}"
-                }
                 .fillMaxWidth()
                 .basicMarquee(
                     animationMode = MarqueeAnimationMode.Immediately,
