@@ -4,8 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.minichallenges.challenges.september.MapChipFilter
-import com.example.minichallenges.challenges.september.TicketBuilder
+import com.example.minichallenges.challenges.september.AccessibleAudioSchedule
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,7 +12,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            MapChipFilter()
+            AccessibleAudioSchedule()
         }
     }
 }

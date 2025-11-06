@@ -50,9 +50,7 @@ fun ExpandableLists() {
     SeptemberTheme {
         var expandedIndex by remember { mutableStateOf<Int?>(null) }
 
-        Scaffold(
-            modifier = Modifier.background(MaterialTheme.colorScheme.background)
-        ) { padding ->
+        Scaffold { padding ->
             Column(
                 modifier = Modifier
                     .padding(padding)
