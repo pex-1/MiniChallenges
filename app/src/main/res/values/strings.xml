@@ -10,4 +10,6 @@
     <string name="total">"Total: "</string>
 
     <string name="festival_map">Festival Map</string>
+
+    <string name="schedule">Schedule</string>
 </resources>
