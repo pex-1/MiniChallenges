@@ -2,6 +2,7 @@ package com.example.minichallenges.challenges.september
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.rememberScrollable2DState
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.scrollable2D
@@ -32,7 +33,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,6 +46,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,6 +56,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.unit.times
 import androidx.compose.ui.zIndex
+import com.example.minichallenges.R
 import com.example.minichallenges.challenges.september.data.festivalSchedule
 import com.example.minichallenges.challenges.september.theme.Overlay
 import com.example.minichallenges.challenges.september.theme.SeptemberTheme
@@ -61,7 +64,6 @@ import com.example.minichallenges.challenges.september.theme.lime
 import com.example.minichallenges.challenges.september.theme.orange
 import com.example.minichallenges.challenges.september.theme.purple
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 data class Session(
     val artistName: String,
@@ -87,20 +89,20 @@ fun MultiStageTimelinePainter() {
     var size by remember { mutableStateOf(IntSize.Zero) }
     var maxOffset by remember { mutableStateOf(Offset.Zero) }
     val scrollState = rememberScrollState()
+    var headerHeight by remember { mutableStateOf(0.dp) }
+    val density = LocalDensity.current
 
     val zoomPercentage by remember {
         derivedStateOf {
-            ((scale * 10).toInt() % 100) * 10
+            (scale * 10).toInt() * 10
         }
     }
-
-    var showHint by remember {
+    var showHint by rememberSaveable {
         mutableStateOf(true)
     }
-    val scope = rememberCoroutineScope()
-    LaunchedEffect(Unit) {
-        scope.launch {
-            delay((2000L..3000L).random())
+    if (showHint) {
+        LaunchedEffect(Unit) {
+            delay(2500L)
             showHint = false
         }
     }
@@ -118,7 +120,7 @@ fun MultiStageTimelinePainter() {
                         .fillMaxWidth()
                         .background(MaterialTheme.colorScheme.background)
                         .padding(20.dp),
-                    text = "Festival Schedule",
+                    text = stringResource(R.string.festival_schedule),
                     style = MaterialTheme.typography.bodySmall
                 )
 
@@ -148,7 +150,7 @@ fun MultiStageTimelinePainter() {
                         consumedX = delta.x
                     } else {
                         offset = offset.copy(x = newX.coerceIn(-maxOffset.x, maxOffset.x))
-                        consumedX = delta.x - (newX - offset.x) // only part was consumed
+                        consumedX = delta.x - (newX - offset.x)
                     }
 
                     if (scale > 1f) {
@@ -161,8 +163,7 @@ fun MultiStageTimelinePainter() {
                             val remaining = newY - clampedY
                             offset = offset.copy(y = clampedY)
 
-                            consumedY =
-                                delta.y - remaining + scrollState.dispatchRawDelta(-remaining)
+                            consumedY = delta.y - remaining + scrollState.dispatchRawDelta(-remaining)
                         }
                     } else {
                         consumedY = scrollState.dispatchRawDelta(-delta.y)
@@ -175,7 +176,6 @@ fun MultiStageTimelinePainter() {
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
@@ -196,7 +196,10 @@ fun MultiStageTimelinePainter() {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(start = 56.dp, end = 12.dp, bottom = 12.dp, top = 6.dp),
+                                .onGloballyPositioned {
+                                    headerHeight = with(density) { it.size.height.toDp() }
+                                }
+                                .padding(start = 56.dp, end = 12.dp, bottom = 12.dp, top = 6.dp)
                         ) {
                             stages.forEach {
                                 Text(
@@ -213,19 +216,23 @@ fun MultiStageTimelinePainter() {
                             thickness = 2.dp,
                             color = MaterialTheme.colorScheme.primary
                         )
-
                         BackgroundGrid(modifier = Modifier.fillMaxSize())
-
-
                     }
 
                     if (scale == 1f && showHint) {
                         Text(
                             modifier = Modifier
                                 .fillMaxSize()
+                                .padding(top = headerHeight)
                                 .background(MaterialTheme.colorScheme.Overlay.copy(alpha = 0.75f))
+                                .clickable(
+                                    interactionSource = null,
+                                    indication = null
+                                ) {
+                                    showHint = false
+                                }
                                 .wrapContentSize(Alignment.Center),
-                            text = "Pinch to zoom",
+                            text = stringResource(R.string.pinch_to_zoom),
                             color = MaterialTheme.colorScheme.surface,
                             style = MaterialTheme.typography.labelMedium
                         )
@@ -248,7 +255,7 @@ fun MultiStageTimelinePainter() {
     }
 }
 
-private fun getTimes(): List<Pair<Int, Int>> {
+private fun getHours(): List<Pair<Int, Int>> {
     val times = mutableListOf<Pair<Int, Int>>()
     for (hour in 12..22) {
         times.add(Pair(hour, 0))
@@ -267,8 +274,9 @@ fun BackgroundGrid(
     rightPadding: Dp = 12.dp,
     columnHeight: Dp = 50.dp
 ) {
+    val hours = getHours()
     val lineColor = MaterialTheme.colorScheme.outline
-    val totalContentHeight = ((getTimes().size - 1) * columnHeight.value).dp + topPadding
+    val totalContentHeight = ((hours.size - 1) * columnHeight.value).dp + topPadding
 
     Box(
         modifier = modifier
@@ -295,7 +303,7 @@ fun BackgroundGrid(
 
                     // horizontal + padding
                     val topPadding = topPadding.toPx()
-                    getTimes().forEachIndexed { index, _ ->
+                    hours.forEachIndexed { index, _ ->
                         val y = index * columnHeightInPx + topPadding
                         drawLine(
                             color = lineColor,
@@ -309,7 +317,7 @@ fun BackgroundGrid(
             // draw schedule
             val density = LocalDensity.current
             festivalSchedule.forEach { session ->
-                val startingBlock = (session.startTime.first - getTimes().first().first) * 2 +
+                val startingBlock = (session.startTime.first - hours.first().first) * 2 +
                         (session.startTime.second / 30)
                 val numberOfBlocks = (session.endTime.first - session.startTime.first) * 2 +
                         (session.endTime.second - session.startTime.second) / 30
@@ -339,14 +347,14 @@ fun BackgroundGrid(
                 .fillMaxHeight()
                 .padding(start = 12.dp, top = topPadding - 8.dp)
         ) {
-            getTimes().filterIndexed { index, _ -> index % 2 == 0 }.forEachIndexed { index, time ->
+            getHours().filterIndexed { index, _ -> index % 2 == 0 }.forEachIndexed { index, time ->
                 Text(
                     modifier = Modifier
                         .padding(
                             top = if (index == 0) 0.dp else 80.dp,
                             bottom = if (time.first == 23) 12.dp else 0.dp
                         ),
-                    text = "%02d:00".format(time.first),
+                    text = stringResource(R.string.hours_format).format(time.first),
                     style = MaterialTheme.typography.labelSmall
                 )
             }
@@ -361,15 +369,16 @@ fun ZoomIndicator(percentage: Int) {
             .clip(RoundedCornerShape(4.dp))
             .background(MaterialTheme.colorScheme.Overlay.copy(alpha = 0.75f))
             .padding(8.dp),
-        text = "Zoom: %d%%".format(percentage),
+        text = stringResource(R.string.zoom_format).format(percentage),
         style = MaterialTheme.typography.bodySmall
             .copy(color = MaterialTheme.colorScheme.surface),
         fontSize = 16.sp
     )
 }
 
+@Composable
 private fun formatTime(startTime: Pair<Int, Int>, endTime: Pair<Int, Int>): String {
-    return "%d:%02d-%d:%02d".format(
+    return stringResource(R.string.card_time_format).format(
         startTime.first,
         startTime.second,
         endTime.first,
@@ -403,7 +412,7 @@ fun EventCard(
             modifier = Modifier.padding(horizontal = 6.dp),
             text = session.artistName,
             style = MaterialTheme.typography.bodyMedium,
-            fontSize = 18.sp
+            fontSize = 16.sp
         )
     }
 }
