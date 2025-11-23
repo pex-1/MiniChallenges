@@ -12,4 +12,10 @@
     <string name="festival_map">Festival Map</string>
 
     <string name="schedule">Schedule</string>
+
+    <string name="pinch_to_zoom">Pinch to zoom</string>
+    <string name="hours_format">%02d:00</string>
+    <string name="zoom_format">Zoom: %d%%</string>
+    <string name="card_time_format">%d:%02d-%d:%02d</string>
+    <string name="festival_schedule">Festival Schedule</string>
 </resources>
