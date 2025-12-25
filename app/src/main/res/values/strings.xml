@@ -18,4 +18,9 @@
     <string name="zoom_format">Zoom: %d%%</string>
     <string name="card_time_format">%d:%02d-%d:%02d</string>
     <string name="festival_schedule">Festival Schedule</string>
+    <string name="thermometer_trek">Thermometer Trek</string>
+    <string name="press_start_to_begin_tracking_temperature">Press Start to begin tracking\ntemperature</string>
+    <string name="temp_format">%.1f F°</string>
+
+    # async adventures
 </resources>

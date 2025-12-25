@@ -6,6 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
+import com.example.minichallenges.challenges.august.thermometer.ThermometerTrek
+import com.example.minichallenges.challenges.august.thermometer.ThermometerTrekRoot
 import com.example.minichallenges.challenges.september.AccessibleAudioSchedule
 import com.example.minichallenges.challenges.september.MultiStageTimelinePainter
 
@@ -16,7 +18,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            MultiStageTimelinePainter()
+            ThermometerTrekRoot()
         }
     }
 }
