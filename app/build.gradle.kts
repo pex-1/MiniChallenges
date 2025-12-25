@@ -51,6 +51,10 @@ dependencies {
     // Extended icons
     implementation(libs.androidx.material.icons.extended)
 
+    // Coroutines
+    implementation(libs.bundles.coroutines)
+
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
