@@ -7,6 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import com.example.minichallenges.challenges.august.orderqueueoutpost.OrderQueueOutpostRoot
+import com.example.minichallenges.challenges.august.parcelpigeonrace.ParcelPigeonRace
+import com.example.minichallenges.challenges.august.parcelpigeonrace.ParcelPigeonRaceRoot
 import com.example.minichallenges.challenges.august.thermometer.ThermometerTrek
 import com.example.minichallenges.challenges.august.thermometer.ThermometerTrekRoot
 import com.example.minichallenges.challenges.september.AccessibleAudioSchedule
@@ -19,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            OrderQueueOutpostRoot()
+            ParcelPigeonRaceRoot()
         }
     }
 }
