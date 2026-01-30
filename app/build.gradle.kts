@@ -34,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
@@ -61,6 +64,14 @@ dependencies {
 
     //coil
     implementation(libs.coil.compose)
+
+    //constraint layout
+    implementation(libs.androidx.constraintlayout)
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.1.1")
+    implementation("com.google.accompanist:accompanist-permissions:0.32.0")
+
+    implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
+    implementation(libs.androidx.compose.material3.adaptive.navigation)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

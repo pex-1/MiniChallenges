@@ -6,13 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
-import com.example.minichallenges.challenges.august.orderqueueoutpost.OrderQueueOutpostRoot
-import com.example.minichallenges.challenges.august.parcelpigeonrace.ParcelPigeonRace
-import com.example.minichallenges.challenges.august.parcelpigeonrace.ParcelPigeonRaceRoot
-import com.example.minichallenges.challenges.august.thermometer.ThermometerTrek
-import com.example.minichallenges.challenges.august.thermometer.ThermometerTrekRoot
-import com.example.minichallenges.challenges.september.AccessibleAudioSchedule
-import com.example.minichallenges.challenges.september.MultiStageTimelinePainter
+import com.example.minichallenges.challenges.june.BirthdayCardScreen
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -21,7 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            ParcelPigeonRaceRoot()
+            BirthdayCardScreen()
         }
     }
 }
