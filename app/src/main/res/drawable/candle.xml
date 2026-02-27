@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="242dp"
+    android:height="242dp"
+    android:viewportWidth="242"
+    android:viewportHeight="242">
+
+    <group>
+        <!-- The clip-path from the SVG -->
+        <clip-path
+            android:pathData="M0,0h242v242h-242z" />
+
+        <!-- Outer Circle with Gradient -->
+        <path android:pathData="M121,121m-121,0a121,121 0,1 1,242 0a121,121 0,1 1,-242 0">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="121"
+                    android:startY="0"
+                    android:endX="121"
+                    android:endY="242">
+                    <item
+                        android:color="#FF185E85"
+                        android:offset="0" />
+                    <item
+                        android:color="#00185E85"
+                        android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Inner Circle with Gradient -->
+        <path android:pathData="M121,121m-64,0a64,64 0,1 1,128 0a64,64 0,1 1,-128 0">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="121"
+                    android:startY="57"
+                    android:endX="121"
+                    android:endY="185">
+                    <item
+                        android:color="#FF236F98"
+                        android:offset="0" />
+                    <item
+                        android:color="#00236F98"
+                        android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Outer Flame Path -->
+        <path
+            android:fillColor="#E26630"
+            android:pathData="M138.926,123.166C139.698,136.13 134.44,145.625 121.984,146.435C107.863,147.349 94.249,131.407 107.204,115.41C119.601,100.101 110.196,86 110.196,86C110.196,86 137.432,98.119 138.93,123.166H138.926Z" />
+
+        <!-- Inner Flame Path -->
+        <path
+            android:fillColor="#F2A72F"
+            android:pathData="M134.666,128.796C134.011,137.994 129.162,144.171 119.737,143.542C109.053,142.826 100.358,130.297 111.604,120.285C122.367,110.703 120.494,98.7679 120.494,98.7679C120.494,98.7679 135.934,111.024 134.666,128.796Z" />
+
+        <!-- Candle Wick Path -->
+        <path
+            android:fillColor="#301607"
+            android:pathData="M121.969,131.762C121.937,130.775 121.285,130 120.498,130C119.711,130 119.058,130.775 119.027,131.762L118.001,162.084C117.965,163.13 118.636,164 119.472,164H121.528C122.364,164 123.035,163.13 122.999,162.084L121.973,131.762H121.969Z" />
+    </group>
+</vector>
