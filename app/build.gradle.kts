@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 android {
@@ -31,12 +34,17 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     buildFeatures {
         compose = true
     }
+}
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+    }
+}
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {
@@ -58,6 +66,7 @@ dependencies {
     implementation(libs.bundles.coroutines)
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.bundles.compose)
 
     // okhttp
     implementation(libs.okhttp)
@@ -65,10 +74,20 @@ dependencies {
     //coil
     implementation(libs.coil.compose)
 
+    //Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
+    //DataStore
+    implementation(libs.androidx.datastore.preferences)
+
     //constraint layout
     implementation(libs.androidx.constraintlayout)
     implementation("androidx.constraintlayout:constraintlayout-compose:1.1.1")
     implementation("com.google.accompanist:accompanist-permissions:0.32.0")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
     implementation(libs.androidx.compose.material3.adaptive.navigation.suite)
     implementation(libs.androidx.compose.material3.adaptive.navigation)
